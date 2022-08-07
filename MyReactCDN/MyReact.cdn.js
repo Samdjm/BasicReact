@@ -24,7 +24,6 @@ const MyReact = (() => {
   }
 
   function render(component, parent) {
-    console.log(component);
     const element = component;
     const dom =
       element.type == TEXT_ELEMENT
@@ -42,7 +41,6 @@ const MyReact = (() => {
 })();
 
 //DOM utils:
-
 function updateProperties(element, props) {
   //Managing events like: onClick, onChange...
   const isListener = (name) => name.startsWith("on"); //true if onEvent

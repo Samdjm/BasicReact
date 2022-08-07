@@ -1,17 +1,12 @@
-//Button component
-const Button = (props) => {
-  return MyReact.createElement(
-    "button",
-    {
-      onClick: props.onClick,
-      style: {
-        backgroundColor: props.backgroundColor,
-        padding: "10px",
-        border: "none",
-        color: "white",
-      },
-    },
-    props.name
+/**@jsx MyReact.createElement */
+const Button = ({ backgroundColor, children, onClick }) => {
+  return (
+    <button
+      style={{ backgroundColor: backgroundColor, padding: "10px", border: "none" }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
   );
 };
 
@@ -21,37 +16,15 @@ const App = () => {
   function click() {
     alert("Click");
   }
-  return MyReact.createElement(
-    "div",
-    { className: "container" },
-
-    //Title
-    MyReact.createElement(
-      "h1",
-      { style: { color: "#108cb5" } },
-      "STEP 2: Our Own Simple React Clone"
-    ),
-    //Unordered list
-    MyReact.createElement(
-      "ul",
-      { style: { border: "black" } },
-      MyReact.createElement(
-        "li",
-        {},
-        "/MyReactCDN/MyReact.cdn.js",
-        MyReact.createElement(
-          "ol",
-          {},
-          MyReact.createElement(
-            "li",
-            {},
-            "MyReact.createElement(tag, props, ...children)"
-          ),
-          MyReact.createElement("li", {}, "MyReact.render(compoenent, parent)")
-        )
-      )
-    ),
-    Button({ onClick: click, backgroundColor: "green", name: "Click me!" })
+  return (
+    <div className='container'>
+      <h1>STEP 3: Adding JSX</h1>
+      <ul>
+        <li>Adding Babel script to /public/index.html</li>
+        <li>Using JSX syntaxe in /public/index.js</li>
+      </ul>
+      {Button({ backgroundColor: "green", children: "Click me!", onClick: click })}
+    </div>
   );
 };
 

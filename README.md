@@ -355,3 +355,78 @@ Let's add the library to our html file:
 
 ...
 ```
+
+---
+
+---
+
+---
+
+## STEP 2: JSX
+
+Let's add babel cdn to the index.html and use JSX syntaxe.
+
+## /public/index.html
+
+Let's add the babel script to the html file:
+
+```html
+...
+
+<!--BABEL SCRIPT-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+<!--MyReact CDN-->
+<script src="../MyReactCDN/MyReact.cdn.js"></script>
+
+<!--OUR SCRIPT-->
+<script src="./index.js"></script>
+
+...
+```
+
+---
+
+## /public/index.js
+
+And let's use it in our /public/index.js:
+
+```javascript
+/**@jsx MyReact.createElement */
+const Button = ({ backgroundColor, children, onClick }) => {
+  return (
+    <button
+      style={{ backgroundColor: backgroundColor, padding: "10px", border: "none" }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+//The Global parent component
+const App = () => {
+  //Function to test click event
+  function click() {
+    alert("Click");
+  }
+  return (
+    <div className='container'>
+      <h1>STEP 3: Adding JSX</h1>
+      <ul>
+        <li>Adding Babel script to /public/index.html</li>
+        <li>Using JSX syntaxe in /public/index.js</li>
+      </ul>
+      {Button({ backgroundColor: "green", children: "Click me!", onClick: click })}
+    </div>
+  );
+};
+
+//Function that append a component to the parent
+function render(component, parent) {
+  parent.innerHTML = "";
+  parent.appendChild(component);
+}
+
+MyReact.render(App(), document.querySelector("#root")); //Render the App
+```

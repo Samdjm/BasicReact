@@ -430,3 +430,90 @@ function render(component, parent) {
 
 MyReact.render(App(), document.querySelector("#root")); //Render the App
 ```
+
+---
+
+---
+
+---
+
+## STEP 3: Adding React
+
+Now let's add the React library with CDN, and revert the render
+function to ReactDOM.render()
+
+## /public/index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STEP 3: Adding JSX</title>
+
+    <!--OUR STYLE-->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!--OUR SPA-->
+    <div id="root"></div>
+
+    <!--React CDN-->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+    ></script>
+
+    <!--BABEL SCRIPT-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+    <!--OUR SCRIPT-->
+    <script type="text/jsx" src="./index.js"></script>
+  </body>
+</html>
+```
+
+---
+
+## /public/index.js
+
+```javascript
+const Button = ({ backgroundColor, children, onClick }) => {
+  return (
+    <button
+      style={{ backgroundColor: backgroundColor, padding: "10px", border: "none" }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+//The Global parent component
+const App = () => {
+  //Function to test click event
+  function click() {
+    alert("Click");
+  }
+  return (
+    <div className='container'>
+      <h1>STEP 3: Adding JSX</h1>
+      <ul>
+        <li>Adding Babel script to /public/index.html</li>
+        <li>Using JSX syntaxe in /public/index.js</li>
+      </ul>
+      <Button backgroundColor={"green"} onClick={click}>
+        Click me!
+      </Button>
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.querySelector("#root")); //Render the App
+```

@@ -517,3 +517,168 @@ const App = () => {
 
 ReactDOM.render(<App />, document.querySelector("#root")); //Render the App
 ```
+
+---
+
+---
+
+---
+
+## STEP 4: Using node packages
+
+This setup using CDNs does not let us use imports and exports to separate our components in multiple files easily.
+
+### Install dependecies
+
+It's time to use node packages, and install React, ReactDOM, Babel and Webpack:
+
+- Let's get started by initializing the package.json
+
+```bash
+npm init
+```
+
+- And the React dependecies:
+
+```npm
+npm install react react react-dom
+```
+
+- Now we need to add dependecies for babel:
+
+```npm
+npm install -D @babel/core @babel/preset-env @babel/preset-react babel-loader
+```
+
+- And finally Webpack:
+
+Webpack is a bundler that take all our javascript files and
+put them into one big file.
+
+```npm
+npm install -D webpack webpack-cli
+```
+
+---
+
+### babel and Webpack Configuration
+
+- Create a .babelrc file:
+
+```json
+{
+  "presets": ["@babel/preset-react", "@babel-preset-env"]
+}
+```
+
+- Create a webpack.config.js file:
+
+```javascript
+const path = require("path");
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "index.js",
+    path: path.resolve(__dirname, "public"),
+  },
+  watch: true,
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: require.resolve("babel-loader"),
+      },
+    ],
+  },
+};
+```
+
+---
+
+### package.json
+
+```json
+{
+  "name": "react_tuto_story",
+  "version": "1.0.0",
+  "description": "From vanilla javascript to a real React app step by step.",
+  "scripts": {
+    "watch": "webpack --watch --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  }
+}
+```
+
+### Using React
+
+Now that Webpack will take /src/index.js and create a bundle in /public/index.js, let's move our code:
+
+- /src/index.js
+
+```javascript
+import React from "react";
+
+import { render } from "react-dom";
+
+const Button = ({ backgroundColor, children, onClick }) => {
+  return (
+    <button
+      style={{ backgroundColor: backgroundColor, padding: "10px", border: "none" }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+//The Global parent component
+const App = () => {
+  //Function to test click event
+  function click() {
+    alert("Click");
+  }
+  return (
+    <div className='container'>
+      <h1>STEP 5: Using node packages</h1>
+      <ul>
+        <li>packages.json initialization</li>
+        <li>Installing React, Babel and Webpack dependencies</li>
+        <li>Move /public/index.js to /src/index.js</li>
+      </ul>
+      <Button backgroundColor={"green"} onClick={click}>
+        Click me!
+      </Button>
+    </div>
+  );
+};
+
+render(<App />, document.querySelector("#root")); //Render the App
+```
+
+---
+
+### Watch the app and open index.html
+
+build the bundle and watch for changements:
+
+```bash
+npm run watch
+```
+
+---

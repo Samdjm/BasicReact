@@ -158,7 +158,7 @@ Let's implement a basic logic of React, to understand how it works.
 
 ## <u>The library</u>
 
-### Function helper to transfrom compoenent objects
+### Function helper to transfrom component objects
 
 ```javascript
 function createElement(type, props, ...children) => { type, props }
@@ -176,7 +176,7 @@ function createTextElement(nodeValue) => { type, props };
 function render(component, parent) => void;
 ```
 
-Function help render fuction to set attributes of HTMLElement: style, events...
+Function used by render to set attributes of HTMLElement: style, events...
 
 ```javascript
 function updateProperties(element, props) => void;
@@ -212,8 +212,8 @@ const MyReact = (() => {
     };
   }
 
+  //Create and ppend element to parent recursively
   function render(component, parent) {
-    console.log(component);
     const element = component;
     const dom =
       element.type == TEXT_ELEMENT
@@ -242,14 +242,14 @@ function updateProperties(element, props) {
       element.addEventListener(eventType, props[name]); //onEvent:callback => (event, callback)
     });
 
-  //Managing events like: onClick, onChange...
+  //Managing style: color, fontSize...
   if (props.style) {
     Object.keys(props.style).forEach((name) => {
       element.style[name] = props.style[name];
     });
   }
 
-  //Managing attriubute like: style, id...
+  //Managing attriubute like: id, class...
   const isAttribute = (name) =>
     !isListener(name) && name !== "children" && name !== "style";
 
@@ -753,3 +753,160 @@ render(<App />, document.querySelector("#root")); //Render the App
 ---
 
 ---
+
+## STEP 7: Loaders, plugins and dev server
+
+## <u>Install loaders</u>
+
+Let's us add loaders for css, images...
+
+- [css-loader](https://webpack.js.org/loaders/css-loader/)
+
+- [style-loader](https://webpack.js.org/loaders/style-loader/)
+
+- [file-loader](https://v4.webpack.js.org/loaders/file-loader/)
+
+```bash
+npm install -D style-loader css-loader file-loader
+```
+
+## <u>Install Plugins</u>
+
+This plugin help adding the bundle to our html file, without doing it manually:
+
+```bash
+npm install -D html-webpack-plugin
+```
+
+## <u>/webpack.config.js</u>
+
+```javascript
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "index.js",
+    path: path.resolve(__dirname, "build"),
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: require.resolve("babel-loader"),
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.png|svg|jpg|jpeg|gif$/,
+        use: ["file-loader"],
+      },
+    ],
+  },
+};
+```
+
+---
+
+## <u>/package.json</u>
+
+```json
+{
+  "name": "react_tuto_story",
+  "version": "1.0.0",
+  "description": "From vanilla javascript to a real React app step by step.",
+  "scripts": {
+    "dev": "webpack-dev-server --mode=development --open",
+    "watch": "webpack --watch --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  }
+}
+```
+
+---
+
+## Using css and images in App.js
+
+```javascript
+import React from "react";
+
+import Button from "./Components/Button/Button";
+
+import "./style.css";
+import logo from "./assets/logo.svg";
+
+//The Global parent component
+const App = () => {
+  //Function to test click event
+  function click() {
+    alert("Click");
+  }
+  return (
+    <div className='container'>
+      <h1>STEP 7: Loaders, plugins and dev server</h1>
+      <ul>
+        <li>Installing loaders: style-loader css-loader file-loader</li>
+        <li>Installing plugins: html-webpack-plugin</li>
+        <li>Adding: /src/style.css</li>
+        <li>Adding: /src/assets/logo.svg</li>
+      </ul>
+      <Button backgroundColor={"green"} onClick={click}>
+        Click me!
+      </Button>
+      <img src={logo} alt='logo' />
+    </div>
+  );
+};
+export default App;
+```
+
+## Removing style from /public/index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STEP 7: Loaders, plugins and dev server</title>
+  </head>
+  <body>
+    <!--OUR SPA-->
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+---
+
+```bash
+npm run dev
+```

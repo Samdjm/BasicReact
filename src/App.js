@@ -1,6 +1,10 @@
 import React from "react";
 
 import Button from "./Components/Button/Button";
+
+import "./style.css";
+import logo from "./assets/logo.svg";
+
 //The Global parent component
 const App = () => {
   //Function to test click event
@@ -9,14 +13,17 @@ const App = () => {
   }
   return (
     <div className='container'>
-      <h1>STEP 6: Separating files</h1>
+      <h1>STEP 7: Loaders, plugins and dev server</h1>
       <ul>
-        <li>Adding: /src/App.js</li>
-        <li>Adding: /src/Components/Button/Button.js</li>
+        <li>Installing loaders: style-loader css-loader file-loader</li>
+        <li>Installing plugins: html-webpack-plugin</li>
+        <li>Adding: /src/style.css</li>
+        <li>Adding: /src/assets/logo.svg</li>
       </ul>
       <Button backgroundColor={"green"} onClick={click}>
         Click me!
       </Button>
+      <img src={logo} alt='logo' />
     </div>
   );
 };

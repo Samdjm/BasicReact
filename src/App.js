@@ -5,25 +5,32 @@ import Button from "./Components/Button/Button";
 import "./style.css";
 import logo from "./assets/logo.svg";
 
-//The Global parent component
 const App = () => {
-  //Function to test click event
   function click() {
     alert("Click");
   }
   return (
     <div className='container'>
-      <h1>STEP 7: Loaders, plugins and dev server</h1>
-      <ul>
-        <li>Installing loaders: style-loader css-loader file-loader</li>
-        <li>Installing plugins: html-webpack-plugin</li>
-        <li>Adding: /src/style.css</li>
-        <li>Adding: /src/assets/logo.svg</li>
-      </ul>
+      <h1>Simple React App</h1>
+      <p style={{ textAlign: "left" }}>
+        You learned how React and Babel works, then you built a Development and Production
+        workflow using Webpack.
+      </p>
+
+      <p style={{ textAlign: "left" }}>
+        You can now code your app using React library, and build it when you are done!
+      </p>
+      <p>Happy hacking!</p>
+      <a href='https://reactjs.org/docs/getting-started.html' target={"_blank"}>
+        React Documentation
+      </a>
+      <a href='https://djemai-samy.com' target={"_blank"}>
+        Author: Djemai Samy
+      </a>
+      <img id='logo' src={logo} alt='logo' />
       <Button backgroundColor={"green"} onClick={click}>
         Click me!
       </Button>
-      <img src={logo} alt='logo' />
     </div>
   );
 };

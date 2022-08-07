@@ -1,7 +1,7 @@
 import React from "react";
 
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 
 import App from "./App";
-
-render(<App />, document.querySelector("#root")); //Render the App
+const root = createRoot(document.getElementById("root")); //render is deprecated
+root.render(<App />);

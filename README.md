@@ -910,3 +910,27 @@ export default App;
 ```bash
 npm run dev
 ```
+
+---
+
+## STEP 8: To infinty and beyond
+
+## Congrats !!
+
+You learned how React and Babel works, then you built a Development and Production workflow using Webpack.
+
+You can now code your app using React library, and build it when you are done!
+
+Happy hacking!
+
+- Use this command in development to server your app with hot reload
+
+```bash
+npm run dev
+```
+
+- Use this command to build your app
+
+```bash
+npm run build
+```

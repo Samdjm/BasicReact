@@ -3,13 +3,14 @@
 * {
   color: whitesmoke;
   font-family: "Fira Sans", sans-serif;
+  text-align: center;
 }
 
 body {
   background-color: rgb(38, 38, 38);
 }
 .container {
-  background-color: rgb(48, 48, 48);
+  background-color: #333333;
   padding: 0.5em;
   display: flex;
   flex-direction: column;
@@ -27,4 +28,13 @@ p {
   font-weight: 200;
   font-size: 0.9em;
   text-decoration: none;
+}
+a {
+  color: rgb(112, 141, 227);
+  margin: 20px auto;
+}
+
+#logo {
+  max-width: 200px;
+  margin: 20px auto;
 }

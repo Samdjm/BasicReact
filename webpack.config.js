@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: "./src/index.js",
   output: {
-    filename: "index.js",
+    filename: "bundle.[fullhash].js",
     path: path.resolve(__dirname, "build"),
   },
   plugins: [

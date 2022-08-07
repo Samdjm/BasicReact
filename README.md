@@ -682,3 +682,74 @@ npm run watch
 ```
 
 ---
+
+---
+
+---
+
+## STEP 6: Seperate files
+
+- src/App.js
+
+```javascript
+import React from "react";
+
+import Button from "./Components/Button/Button";
+//The Global parent component
+const App = () => {
+  //Function to test click event
+  function click() {
+    alert("Click");
+  }
+  return (
+    <div className='container'>
+      <h1>STEP 6: Separating files</h1>
+      <ul>
+        <li>Adding: /src/App.js</li>
+        <li>Adding: /src/Components/Button/Button.js</li>
+      </ul>
+      <Button backgroundColor={"green"} onClick={click}>
+        Click me!
+      </Button>
+    </div>
+  );
+};
+export default App;
+```
+
+- src/Components/Button/Button.js
+
+```javascript
+import React from "react";
+
+const Button = ({ backgroundColor, children, onClick }) => {
+  return (
+    <button
+      style={{ backgroundColor: backgroundColor, padding: "10px", border: "none" }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;
+```
+
+- /src/index.js
+
+```javascript
+import React from "react";
+
+import { render } from "react-dom";
+
+import App from "./App";
+
+render(<App />, document.querySelector("#root")); //Render the App
+```
+
+---
+
+---
+
+---
